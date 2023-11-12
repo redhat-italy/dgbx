@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" class="h-100">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Red Hat DataGrid Benchmark">
+        <meta name="author" content="Andrea Leoncini from Bootstrap examples">
+        <title>Red Hat DataGrid Benchmark</title>
+
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sticky-footer-navbar/">        
+
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/dgb.css" rel="stylesheet">
+    </head>
+
+    <body class="d-flex flex-column h-100">
+    
+    <header>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <div class="container-fluid">
+            <a class="navbar-brand" href="http://www.redhat.com"><img src="img/Logo-Red_Hat-A-Reverse-RGB.png" alt="Red Hat home site" width="245" height="58"></a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Begin page content -->
+    <main class="flex-shrink-0">
+        <div class="container">
+            <h1 class="mt-5">Red Hat DataGrid Benchmark</h1>
+            <p class="lead">a web tool to benchmark the performances of DG when working with <b>aggregated queries</b>.</p>
+            <p class="lead">To start a new benchmark please use the following form.</p>
+
+            <br>
+
+            <div id="startForm">
+                <div class="mb-3">
+                    <label for="input_description" class="form-label">Description</label>
+                    <input type="text" class="form-control" id="input_description" aria-describedby="descHelp">
+                    <div id="descHelp" class="form-text">enter a description of the benchmark</div>
+                </div>
+                <label for="loadInfo" class="form-label">Set workload simulation info</label>
+                <div class="input-group mb-3" id="loadInfo">
+                    <span class="input-group-text">From</span>
+                    <input type="date" class="form-control" id="startDateInput">
+                    <span class="input-group-text"># of days</span>
+                    <input type="number" class="form-control" id="numberOfDays">
+                    <span class="input-group-text"># of daily entries</span>
+                    <input type="number" class="form-control" id="numberOfDailyEntries">
+                </div>
+                <button type="submit" class="btn btn-primary" id="startBenchmarkButton">Start Benchmark</button>
+            </div>
+
+            <br>
+
+            <div class="alert alert-success" role="alert" style="display:none" id="alert_result">
+                <h4 class="alert-heading">Very well!</h4>
+                <p>A new Benchmark has been invoked. Now be patient and wait for results.</p>
+                <hr>
+                <p class="mb-0">The new benchmark ID: <b><span id="bench_id"></span></b> </p>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer mt-auto py-3 bg-light">
+    <div class="container">
+        <span class="text-muted" style="text-align: right;">developed by SA team Italy</span>
+    </div>
+    </footer>
+
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/dgb.js"></script>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        $("#startBenchmarkButton").on("click", function () {
+            var benchmark = {};
+            benchmark.description = $('#input_description').val();
+            benchmark.startDate = Date.parse($('#startDateInput').val());
+            benchmark.days = parseInt($('#numberOfDays').val());
+            benchmark.entries = parseInt($('#numberOfDailyEntries').val());
+            startBenchmark(benchmark, showStartResult);
+        });
+
+    });
+
+</script>
+      
+  </body>
+</html>
